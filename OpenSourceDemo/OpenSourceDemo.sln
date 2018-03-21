@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "_MemCached", "_MemCached", "{D48CD041-C9E7-429E-9018-2D0F18548C2E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Demo.MemCached", "Demo.MemCached\Demo.MemCached.csproj", "{1EDD27C6-9B4F-485B-A849-EC779185E3AF}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1EDD27C6-9B4F-485B-A849-EC779185E3AF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1EDD27C6-9B4F-485B-A849-EC779185E3AF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1EDD27C6-9B4F-485B-A849-EC779185E3AF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1EDD27C6-9B4F-485B-A849-EC779185E3AF}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{1EDD27C6-9B4F-485B-A849-EC779185E3AF} = {D48CD041-C9E7-429E-9018-2D0F18548C2E}
+	EndGlobalSection
+EndGlobal
