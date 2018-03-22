@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Enyim.Caching;
+using Enyim.Caching.Memcached;
 
 namespace Demo.MemCached
 {
@@ -11,42 +12,98 @@ namespace Demo.MemCached
     {
         private static MemcachedClient MemClient;
 
+        private static MemCachedManage instance;
+
         public MemCachedManage()
         {
-            MemClient = MemCachedHelper.getInstance();
         }
+
+        static MemCachedManage()
+        {
+            MemClient = MemcachedClientFactory.GetInstance();
+            instance = new MemCachedManage();
+        }
+
+        public static ICache Instance
+        {
+            get { return instance; }
+        }
+
+
         public void Clear()
         {
+            MemClient.FlushAll();
         }
 
         public void Dispose()
         {
-            throw new NotImplementedException();
+            MemClient = null;
         }
 
         public T Get<T>(string key)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return MemClient.Get<T>(key);
+            }
+            catch (Exception)
+            {
+                return default(T);
+            }
         }
 
         public bool IsSet(string key)
         {
-            throw new NotImplementedException();
+            try
+            {
+                return MemClient.Get(key) != null;
+            }
+            catch (Exception)
+            {
+                return false;
+
+            }
         }
 
         public void Remove(string key)
         {
-            throw new NotImplementedException();
+            try
+            {
+                MemClient.Remove(key);
+            }
+            catch (Exception)
+            {
+                //igore
+            }
         }
 
         public void RemoveByPattern(string pattern)
         {
-            throw new NotImplementedException();
+            //
         }
 
         public void Set(string key, object data, int cacheTime)
         {
-            throw new NotImplementedException();
+            try
+            {
+                MemClient.Store(StoreMode.Set, key, data, DateTime.Now.AddSeconds(cacheTime));
+            }
+            catch (Exception)
+            {
+                //igore
+            }
+        }
+
+        public void Set(string key, object data)
+        {
+            try
+            {
+                MemClient.Store(StoreMode.Set, key, data);
+            }
+            catch (Exception)
+            {
+                //igore
+            }
         }
     }
 }

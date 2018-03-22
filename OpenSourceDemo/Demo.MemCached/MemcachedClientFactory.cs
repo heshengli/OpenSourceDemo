@@ -6,12 +6,12 @@ using Enyim.Caching.Memcached;
 
 namespace Demo.MemCached
 {
-    public class MemCachedHelper
+    public class MemcachedClientFactory
     {
         private static MemcachedClient MemClient;
         static readonly object padlock = new object();
         //线程安全的单例模式
-        public static MemcachedClient getInstance()
+        public static MemcachedClient GetInstance()
         {
             if (MemClient == null)
             {
@@ -20,12 +20,15 @@ namespace Demo.MemCached
                     if (MemClient == null)
                     {
                         //MemClientInit();
+                        //根据xml配置初始化缓存
                         MemClient = new MemcachedClient();
                     }
                 }
             }
             return MemClient;
         }
+
+
         static void MemClientInit()
         {
             //初始化缓存
@@ -47,72 +50,6 @@ namespace Demo.MemCached
             memConfig.SocketPool.MinPoolSize = 5;
             memConfig.SocketPool.MaxPoolSize = 200;
             MemClient = new MemcachedClient(memConfig);
-        }
-
-        public void Dispose()
-        {
-            MemClient = null;
-        }
-
-        public T Get<T>(string key)
-        {
-            try
-            {
-                return MemClient.Get<T>(key);
-            }
-            catch (Exception)
-            {
-                return default(T);
-            }
-        }
-
-        public void Set(string key, object data)
-        {
-            try
-            {
-                MemClient.Store(StoreMode.Set, key, data);
-            }
-            catch (Exception)
-            {
-                //igore
-            }
-        }
-
-        public void Set(string key, object data, int cacheTime)
-        {
-            try
-            {
-                MemClient.Store(StoreMode.Set, key, data, DateTime.Now.AddSeconds(cacheTime));
-            }
-            catch (Exception)
-            {
-                //igore
-            }
-        }
-
-        public bool IsSet(string key)
-        {
-            try
-            {
-                return MemClient.Get(key) != null;
-            }
-            catch (Exception)
-            {
-                return false;
-
-            }
-        }
-
-        public void Remove(string key)
-        {
-            try
-            {
-                MemClient.Remove(key);
-            }
-            catch (Exception)
-            {
-                //igore
-            }
         }
     }
 }
